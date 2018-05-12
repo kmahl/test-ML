@@ -1,27 +1,51 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import request from "request";
+import { withRouter } from 'react-router-dom';
 class SearchBar extends Component {
-  constructor(props) {
-    super(props);
+
+  constructor(props, context) {
+    super(props, context);
+    this.submitForm = this.submitForm.bind(this);
     this.state = {
-      searchVal: ''
+      query: '',
+      fireRedirect: false
     }
   }
-  getSearchUrl() {
-    let searchVal = "telefono"
-			return `/items?search=${this.state.searchVal}`
+
+  handleInputChange(e) {
+    let query = e.target.value
+    console.log(query)
+    this.setState({
+      query: query
+    })
   }
+
+  submitForm(e) {
+    e.preventDefault()
+    //if (this.state.query)
+
+    this.props.history.push({
+      pathname: '/items',
+      search: `q=${this.state.query}`
+    })
+  }
+  
   render() {
+    const { query } = this.state;
     return (
       <div>
-        <input  />
-        <Link to={`/`}>home</Link>
-        <Link to={this.getSearchUrl()}>
-         aquies
-        </Link>
+        <form onSubmit={this.submitForm}>
+          <input
+            type="text"
+            placeholder="Nunca dejes de buscar"
+            value={query}
+            onChange={(e) => this.handleInputChange(e)}
+
+          />
+          <button type="submit">Buscar</button>
+        </form>
+
       </div>
     )
   }
 }
-export default SearchBar
+export default withRouter(SearchBar)

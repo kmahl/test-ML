@@ -15,7 +15,7 @@ class Main extends Component {
     return (
       <main>
         <Switch>
-        <Route exact path="/" render={props => <Home {...props} />} />
+          <Route exact path="/" render={props => <Home {...props} />} />
           <Route exact path="/items" render={props => <Result {...props} />} />
           <Route exact path="/items/:id" render={props => <Detail {...props} />} />
         </Switch>
