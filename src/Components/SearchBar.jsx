@@ -13,7 +13,6 @@ class SearchBar extends Component {
 
   handleInputChange(e) {
     let query = e.target.value
-    console.log(query)
     this.setState({
       query: query
     })
@@ -21,14 +20,14 @@ class SearchBar extends Component {
 
   submitForm(e) {
     e.preventDefault()
-    //if (this.state.query)
-
-    this.props.history.push({
-      pathname: '/items',
-      search: `q=${this.state.query}`
-    })
+    if (this.state.query) {
+      this.props.history.push({
+        pathname: '/items',
+        search: `search=${this.state.query}`
+      })
+    } 
   }
-  
+
   render() {
     const { query } = this.state;
     return (

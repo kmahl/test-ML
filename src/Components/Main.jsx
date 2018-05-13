@@ -7,9 +7,6 @@ import Home from './Home.jsx'
 class Main extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      searchVal: ''
-    }
   }
   render() {
     return (
