@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import queryString from 'query-string';
+import Item from './Item/Item.jsx';
+import Breadcrumb from './Breadcrumb/Breadcrumb.jsx'
 class Result extends Component {
   constructor(props) {
     super(props);
@@ -38,8 +39,9 @@ class Result extends Component {
           throw new Error('Algo salió mal ...');
         }
       })
-      .then(data => this.setState({ results: data.items, isLoading: false }))
+      .then(data => this.setState({ results: data, isLoading: false }))
       .catch(error => this.setState({ error, isLoading: false }));
+
   }
 
   render() {
@@ -51,17 +53,22 @@ class Result extends Component {
     }
     //mientras isLoading=true
     if (isLoading) {
-      return <p>Buscando...</p>;
+      return <p></p>;
     }
     //si response es ok y loading es false se procede a mapear la lista de items
-    return (
-      <div>
-        {results.map(item =>
-          <div key={item.id}>
-            <Link to={`/items/` + item.id}>{item.title}</Link>
-          </div>
-        )}
-      </div>
+    if (results.items) {
+      console.log(results.categories)
+      return (
+        <div>
+          <Breadcrumb key="breadcrumb" data={results.categories}/>
+          {results.items.map(item =>
+            <Item key={item.id} item={item} ></Item>
+          )}
+        </div>
+      );
+    }
+    return(
+      <div></div>
     );
   }
 }

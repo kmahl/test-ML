@@ -22,27 +22,26 @@ module.exports = {
               }
             }
           },
-      {
-        test: /\.css$/,
-        use: [ 'style-loader', 'css-loader' ]
-      },
-      {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: "style-loader"
-          },
-          {
-            loader: "css-loader"
-          },
-          {
-            loader: "sass-loader",
-            options: {
-              includePaths: ["absolute/path/a", "absolute/path/b"]
+        {
+          test: /\.scss$/,
+            use: [
+                "style-loader", // creates style nodes from JS strings
+                "css-loader", // translates CSS into CommonJS
+                "sass-loader" // compiles Sass to CSS
+            ]
+        },
+        {
+          test: /\.(png|jpg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[path][name].[ext]',
+                outputPath: 'images/'
+              }  
             }
-          }
-        ]
-      }
+          ]
+        }
     ]
   },
   plugins: [

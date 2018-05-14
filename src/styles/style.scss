@@ -1,0 +1,154 @@
+//colores Base    
+$yellowML: #FFE600;
+$grey33: #333333;
+$grey66: #666666;
+$grey99: #999999;
+$greyEE: #EEEEEE;
+$blueConfirm: #3483FA;
+body {
+    background-color: $greyEE;
+    margin: 0;
+    padding: 0;
+    color: $grey33;
+}
+a{
+    text-decoration: none;
+    color: $grey33;
+}
+a, p, span, h1,h2,h3,h4,h5,h6{
+    font-family: "Proxima Nova",Helvetica,Arial,sans-serif;
+}
+.container {
+    display: grid;
+    grid-template-areas: "header" "main";
+    grid-template-columns: 40px repeat(12, 1fr) 40px;
+    grid-template-rows: 45px auto;
+    header {
+        grid-area: header;
+        grid-column: span 14;
+        display: block;
+        background-color: $yellowML;
+        .Header {
+            display: grid;
+            grid-template-columns: 40px repeat(12, 1fr) 40px;
+            grid-template-rows: 45px;
+            .logo {
+                display: flex;
+                align-items: center;
+                grid-column-start: 3;
+                grid-column-end: 4;
+            }
+            .searchBar {
+                grid-column: span 9;
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                form {
+                    display: flex;
+                    width: 100%;
+                    input {
+                        width: 100%;
+                        font-size: 18px;
+                        border: none;
+                        padding: 5px 10px;
+                        border-radius: 4px 0px 0px 4px;
+                        &::placeholder {
+                            color: $grey99;
+                        }
+                        &:focus{
+                            outline: none;
+                        }
+                    }
+                    button {
+                        border: none;
+                        border-radius: 0px 4px 4px 0px;
+                        background-color: $greyEE;
+                        width: 35px;
+                        .icon-search{
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                        }
+                        &:focus{
+                            outline: none;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    Main {
+        grid-area: main;
+        grid-column: span 14;
+        .main {
+            display: grid;
+            grid-template-columns: 40px repeat(12, 1fr) 40px;
+            grid-template-rows: auto;
+            margin-bottom: 32px;
+            >div {
+                grid-column-start: 3;
+                grid-column-end: 13;
+                .box {
+                    background-color: white;
+                    padding: 16px;
+                    padding-bottom: 0;
+                    .itemCard {
+                        display: grid;
+                        grid-template-columns: 2fr 8fr 2fr;
+                        background-color: white;
+                        border-bottom: 1px $greyEE solid;
+                        .image {
+                            img {
+                                border-radius: 4px;
+                                width: 180px;
+                                height: 180px;
+                                margin-right: 16px;
+                                margin-bottom: 16px;
+                            }
+                        }
+                        .shortDescription {
+                            display: flex;
+                            flex-direction: column;
+                            width: 100%;
+                            font-size: 18px;
+                            .price {
+                                font-size: 24px;
+                                padding-top: 16px;
+                                padding-bottom: 32px;
+                                span{
+                                    margin-right: 10px;
+                                }
+                                .decimal{
+                                    font-size: 12px;
+                                    left: -5px;
+                                    line-height: 1;
+                                    position: relative;
+                                    top: -8px;
+                                }
+                            }  
+                        }
+                        .location{
+                            font-size: 12px;
+                            color: $grey99;
+                            padding-top: 32px;  
+                        }
+                    }
+                }
+            }
+        }
+        p{
+            margin-left: 150px;
+            margin-top: 32px;
+        }
+    }
+}
+.Breadcrumb{
+    color: $grey99;
+    padding: 16px 0 16px 0;
+    font-size: 14px;
+    .last{
+        color:$grey66;
+        font-weight: 600;
+    }
+}

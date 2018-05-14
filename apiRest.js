@@ -5,7 +5,7 @@ const api = express.Router();
 const autor = { name: 'Carlos', lastname: 'Vizcaya' };
 api.get("/items", (req, res) => {
   let RespuestaBusqueda = {
-    autor: {
+    author: {
       name: autor.name,
       lastname: autor.lastname
     },
@@ -21,22 +21,29 @@ api.get("/items", (req, res) => {
         if (body.filters.length > 0) {
           var categorias = body.filters.find(x => x.id === "category");
           if (categorias.values[0].path_from_root.length > 0)
-            categorias.values[0].path_from_root.forEach(e => {
+            categorias.values[0].path_from_root.map(e => {
               RespuestaBusqueda.categories.push(e.name);
             });
         }
         if (body.results.length > 0) {
-          var items = body.results.forEach(item => {
+          var items = body.results.map(item => {
+            var condition = "";
+            if (item.attributes.length > 0) {
+              var attributes = item.attributes.find(x => x.id === "ITEM_CONDITION");
+              condition = attributes.value_name
+            }
+            var fullPrice = item.price.toString().split('.')
             RespuestaBusqueda.items.push({
               id: item.id,
               title: item.title,
+              location: item.address.state_name,
               price: {
                 currency: item.currency_id,
-                amount: item.price,
-                decimals: 0
+                amount: fullPrice[0],
+                decimals: fullPrice[1] || 0,
               },
               picture: item.thumbnail,
-              condition: item.condition,
+              condition: condition,
               free_shipping: item.shipping.free_shipping
             });
           });
@@ -52,7 +59,7 @@ api.get("/items", (req, res) => {
 });
 //obtener producto por ID
 api.get("/items/:id", (req, res) => {
-  let item = {
+  let itemResp = {
     author: {
       name: autor.name,
       lastname: autor.lastname
@@ -69,31 +76,51 @@ api.get("/items/:id", (req, res) => {
       condition: "",
       free_shipping: "",
       sold_quantity: 0,
-      description: ""
+      description: "",
+      categories: [],
     }
   };
   Request(`https://api.mercadolibre.com/items/${req.params.id}`)
     .then(function (body) {
-      item.item = {
+      var condition = "";
+      if (body.attributes.length > 0) {
+        var attributes = body.attributes.find(x => x.id === "ITEM_CONDITION");
+        condition = attributes.value_name
+      }
+      var fullPrice = body.price.toString().split('.')
+      itemResp.item = {
         id: body.id,
         title: body.title,
         price: {
           currency: body.currency_id,
-          amount: body.price,
-          decimals: 0
+          amount: fullPrice[0],
+          decimals: fullPrice[1] || 0,
         },
         picture: body.thumbnail,
-        condition: body.condition,
+        condition: condition,
         free_shipping: body.shipping.free_shipping,
-        sold_quantity: body.sold_quantity
+        sold_quantity: body.sold_quantity,
+        description: "",
+        categories: [],
       };
+      return Request(
+        `https://api.mercadolibre.com/categories/${body.category_id}`
+      );
+    })
+    .then(function (categ) {
+      let categories = categ.path_from_root;
+      if (categories.length > 0) {
+        categories.forEach(category => {
+          itemResp.item.categories.push(category.name);
+        })
+      }
       return Request(
         `https://api.mercadolibre.com/items/${req.params.id}/description`
       );
     })
     .then(function (params) {
-      item.item.description = params.plain_text;
-      res.json(item);
+      itemResp.item.description = params.plain_text;
+      res.json(itemResp);
     })
     .catch(function (err) {
       console.log(err);

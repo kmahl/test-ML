@@ -11,11 +11,13 @@ class Main extends Component {
   render() {
     return (
       <main>
+        <div className="main">
         <Switch>
           <Route exact path="/" render={props => <Home {...props} />} />
           <Route exact path="/items" render={props => <Result {...props} />} />
           <Route exact path="/items/:id" render={props => <Detail {...props} />} />
         </Switch>
+        </div>
       </main>
     )
   }

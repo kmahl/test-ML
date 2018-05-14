@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-
+import Breadcrumb from './Breadcrumb/Breadcrumb.jsx'
 class Detail extends Component {
   constructor(props) {
     super(props);
@@ -31,18 +31,38 @@ class Detail extends Component {
 
   render() {
     const { item } = this.state;
-    let res
-   
-    if (item) {
-      console.log(item)
-      res = <p itemProp="description" className="body">{item.description}</p>;
+    if (item.id) {
+      return (
+        <div>
+          <Breadcrumb key="breadcrumb" data={item.categories} />
+          <div className="detail">
+            <div className="info">
+              <div className="image">
+                <img src={item.picture} alt="" />
+              </div>
+              <div className="text">
+                <span>{item.condition} - {item.sold_quantity} {item.sold_quantity > 1 ? "vendidos" : "vendido"}</span>
+                <span>{item.title}</span>
+                <div className="price">
+                  <span>$ {formatNumber(item.price.amount)}</span>
+                  <span className='decimal'>{item.price.decimals === 0 ? '' : item.price.decimals}</span>
+                </div>
+                <button>Comprar</button>
+              </div>
+            </div>
+            <div className="description">
+              <p>{item.description}</p>
+            </div>
+          </div>
+        </div>
+      );
     }
-    return (
-      <div>
-        {res}
-      </div>
-    );
+    return(
+      <div></div>
+    )
   }
 }
-
+function formatNumber(num) {
+  return num.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, "$1.")
+}
 export default Detail

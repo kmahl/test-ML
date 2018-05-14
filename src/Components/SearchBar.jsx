@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { withRouter } from 'react-router-dom';
+import buttonIcon from '../Assets/ic_Search.png'
 class SearchBar extends Component {
 
   constructor(props, context) {
@@ -25,13 +26,13 @@ class SearchBar extends Component {
         pathname: '/items',
         search: `search=${this.state.query}`
       })
-    } 
+    }
   }
 
   render() {
     const { query } = this.state;
     return (
-      <div>
+      <div className="searchBar">
         <form onSubmit={this.submitForm}>
           <input
             type="text"
@@ -40,9 +41,12 @@ class SearchBar extends Component {
             onChange={(e) => this.handleInputChange(e)}
 
           />
-          <button type="submit">Buscar</button>
-        </form>
 
+          <button type="submit">
+            <i className="icon-search">
+              <img src={buttonIcon} alt="Buscar" />
+            </i></button>
+        </form>
       </div>
     )
   }
