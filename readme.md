@@ -4,7 +4,7 @@ Requerimiento practico como parte del proceso de ingreso para formar parte del e
 
 ## Antes de Empezar
 
-Descargarse una copia local el proyecto
+Descargar una copia local del proyecto
 
 ### Prerequisitos
 
