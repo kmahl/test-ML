@@ -1,0 +1,10 @@
+@import '../../styles/_colors.scss';
+.Breadcrumb {
+    color: $grey99;
+    padding: 16px 0 16px 0;
+    font-size: 14px;
+    .last {
+        color: $grey66;
+        font-weight: 600;
+    }
+}

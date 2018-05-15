@@ -1,12 +1,10 @@
 import React, { Component } from 'react'
-
+import _Breadcrumb from './_Breadcrumb.scss'
 class Breadcrumb extends Component {
     constructor(props) {
         super(props);
-
     }
     render() {
-
         if (this.props.data) {
 
             return (
@@ -22,5 +20,4 @@ class Breadcrumb extends Component {
         )
     }
 }
-
 export default Breadcrumb

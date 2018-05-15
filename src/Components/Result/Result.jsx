@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
 import queryString from 'query-string';
-import Item from './Item/Item.jsx';
-import Breadcrumb from './Breadcrumb/Breadcrumb.jsx'
+import Item from '../Item/Item.jsx';
+import Breadcrumb from '../Breadcrumb/Breadcrumb.jsx';
+import _Result from './_Result.scss';
 class Result extends Component {
   constructor(props) {
     super(props);
@@ -11,20 +12,24 @@ class Result extends Component {
       error: null,
     }
   }
-
+  //esta función se invoca inmediatamente después de montar el componente, y puedo disponer de las props recibidas
   componentDidMount() {
     if (this.props.location.search)
       this._getApiData(this.props.location.search);
     else
       this.props.history.push('/')
   }
+  //esta funcion se invoca justo antes de que el componente reciba nuevas props, es muy util para actualizar datos
   componentWillReceiveProps(nextProps) {
-
     if (nextProps.location.search !== this.props.location.search) {
       this.setState({ results: null });
       this._getApiData(nextProps.location.search);
     }
   }
+  /**
+ * Funcion que realiza un fetch y asigna a "results" la data recibida.
+ * @param {string} search - ruta del apiRest a realizar la consulta.
+ */
   _getApiData(search) {
     //se obtiene el valor de "search" del uri por medio de queryStrings ya que ''this.props.location.query'' no existe para la v4 de react Router 
     let query = queryString.parse(search);
@@ -41,9 +46,7 @@ class Result extends Component {
       })
       .then(data => this.setState({ results: data, isLoading: false }))
       .catch(error => this.setState({ error, isLoading: false }));
-
   }
-
   render() {
     //creo variables para ser usadas en el renderizado
     const { results, isLoading, error } = this.state;
@@ -51,23 +54,22 @@ class Result extends Component {
     if (error) {
       return <p>{error.message}</p>;
     }
-    //mientras isLoading=true
+    //mientras isLoading=true se pudiese mostrar algun texto o control
     if (isLoading) {
-      return <p></p>;
+      return <p></p>
     }
     //si response es ok y loading es false se procede a mapear la lista de items
     if (results.items) {
-      console.log(results.categories)
       return (
         <div>
-          <Breadcrumb key="breadcrumb" data={results.categories}/>
-          {results.items.map(item =>
+          <Breadcrumb key="breadcrumb" data={results.categories} />
+          <div className="itemList">{results.items.map(item =>
             <Item key={item.id} item={item} ></Item>
-          )}
+          )}</div>
         </div>
       );
     }
-    return(
+    return (
       <div></div>
     );
   }

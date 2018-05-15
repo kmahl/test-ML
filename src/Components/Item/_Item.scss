@@ -1,0 +1,50 @@
+@import '../../styles/_colors.scss';
+.box {
+    background-color: white;
+    padding: 16px;
+    padding-bottom: 0;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    .itemCard {
+        display: grid;
+        grid-template-columns: 2fr 8fr 2fr;
+        background-color: white;
+        border-bottom: 1px $greyEE solid;
+        .image {
+            width: 180px;
+            height: 180px;
+            margin-right: 16px;
+            margin-bottom: 16px;
+            img {
+                border-radius: 4px;
+                width: 100%;
+            }
+        }
+        .shortDescription {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            font-size: 18px;
+            .price {
+                font-size: 24px;
+                padding-top: 16px;
+                padding-bottom: 32px;
+                span {
+                    margin-right: 10px;
+                }
+                .decimal {
+                    font-size: 12px;
+                    left: -5px;
+                    line-height: 1;
+                    position: relative;
+                    top: -8px;
+                }
+            }
+        }
+        .location {
+            font-size: 12px;
+            color: $grey99;
+            padding-top: 32px;
+        }
+    }
+}
