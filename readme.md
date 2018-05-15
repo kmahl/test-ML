@@ -23,10 +23,14 @@ $ npm run build
 ```
 
 o para desarrollo
-
 ```
 $ npm run dev
 ```
+y entrar en: 
+```
+http://localhost:3000/
+```
+
 ## Creado con
 
 * [React](https://reactjs.org/)
