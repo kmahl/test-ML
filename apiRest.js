@@ -43,7 +43,10 @@ api.get("/items", (req, res) => {
             var condition = "";
             if (item.attributes.length > 0) {
               var attributes = item.attributes.find(x => x.id === "ITEM_CONDITION");
-              condition = attributes.value_name
+              if(attributes)
+                condition = attributes.value_name;
+                else
+                condition = "";
             }
             //para obtener el precio y los decimales por separado realice un "split" y asi enviar cada uno por separado
             var fullPrice = item.price.toString().split('.')

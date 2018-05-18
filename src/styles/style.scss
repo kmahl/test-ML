@@ -4,6 +4,7 @@ body {
     margin: 0;
     padding: 0;
     color: $grey33;
+    overflow: overlay;
 }
 
 a {
@@ -25,8 +26,8 @@ h6 {
 
 .container {
     display: grid;
-    grid-template-areas: "header" "main"; //grid-template-columns: 40px repeat(12, 1fr) 40px;
-    grid-template-columns: 1% repeat(12, 1fr) 1%;
+    grid-template-areas: "header" "main"; 
+    grid-template-columns: 40px repeat(12, 1fr) 40px;
     grid-template-rows: 45px auto;
     header {
         grid-area: header;
@@ -34,8 +35,8 @@ h6 {
         display: block;
         background-color: $yellowML;
         .Header {
-            display: grid; //grid-template-columns: 40px repeat(12, 1fr) 40px;
-            grid-template-columns: 1% repeat(12, 1fr) 1%;
+            display: grid;
+            grid-template-columns: 40px repeat(12, 1fr) 40px;
             grid-template-rows: 45px;
             .logo {
                 display: flex;
@@ -49,8 +50,8 @@ h6 {
         grid-area: main;
         grid-column: span 14;
         .main {
-            display: grid; //grid-template-columns: 40px repeat(12, 1fr) 40px;
-            grid-template-columns: 1% repeat(12, 1fr) 1%;
+            display: grid; 
+            grid-template-columns: 40px repeat(12, 1fr) 40px;
             grid-template-rows: auto;
             margin-bottom: 32px;
             >div {
