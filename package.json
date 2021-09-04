@@ -4,7 +4,7 @@
   "description": "test de MercadoLibre",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others \"nodemon Service.js\" \"webpack --watch ",
+    "dev": "concurrently --kill-others \"nodemon Service.js\" \"webpack --watch\"",
     "build": "webpack"
   },
   "author": "Carlos Vizcaya",
